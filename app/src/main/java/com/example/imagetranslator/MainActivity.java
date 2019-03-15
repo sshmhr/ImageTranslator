@@ -12,10 +12,19 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.util.SparseArray;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
+import com.google.android.gms.vision.Frame;
+import com.google.android.gms.vision.text.TextBlock;
+import com.google.android.gms.vision.text.TextRecognizer;
+
+import java.io.IOException;
 
 import java.io.File;
 import java.io.IOException;
@@ -25,7 +34,12 @@ import java.util.Date;
 public class MainActivity extends AppCompatActivity {
 
     static final int REQUEST_TAKE_PHOTO = 1;
+    static final int REQUEST_IMAGE_GALLERY = 2;
     String currentPhotoPath;
+    private Bitmap imageBitmap;
+    private String results = null ;
+    private Button extract_button;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +54,8 @@ public class MainActivity extends AppCompatActivity {
               dispatchTakePictureIntent();
             }
         });
+        extract_button = findViewById(R.id.btn_extract);
+        extract_button.setVisibility(View.GONE);
     }
 
     private void dispatchTakePictureIntent() {
@@ -71,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
         File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         File image = File.createTempFile(
                 imageFileName,  /* prefix */
-                ".jpg",         /* suffix */
+                ".png",         /* suffix */
                 storageDir      /* directory */
         );
         // Save a file: path for use with ACTION_VIEW intents
@@ -79,13 +95,71 @@ public class MainActivity extends AppCompatActivity {
         return image;
     }
 
+    public void getFromGallery(View view){
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), REQUEST_IMAGE_GALLERY);
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
-            Bitmap imageBitmap = BitmapFactory.decodeFile(currentPhotoPath);
-            ImageView imageView = findViewById(R.id.display_captured_image);
-            imageView.setImageBitmap(imageBitmap);
+            imageBitmap = BitmapFactory.decodeFile(currentPhotoPath);
+            setImageAndShowButton();
+        }else if(requestCode == REQUEST_IMAGE_GALLERY && resultCode == RESULT_OK && data != null && data.getData() != null){
+            Uri uri = data.getData();
+            recognize(uri);
         }
+    }
+
+    private void recognize(Uri uri) {
+        try {
+            imageBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+            setImageAndShowButton();
+
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    private void setImageAndShowButton() {
+        ImageView imageView = findViewById(R.id.display_captured_image);
+        imageView.setImageBitmap(imageBitmap);
+        extract_button.setVisibility(View.VISIBLE);
+    }
+
+    public void extractText(View view){
+        try{
+            TextRecognizer textRecognizer = new TextRecognizer.Builder(getApplicationContext()).build();
+            if (!textRecognizer.isOperational()){
+                Log.e("ERROR","Recognizer dependencies is not available yet");
+            }
+            else {
+                Frame frame = new Frame.Builder().setBitmap(imageBitmap).build();
+                SparseArray<TextBlock> items = textRecognizer.detect(frame);
+                StringBuilder stringBuilder = new StringBuilder();
+                for(int i=0;i<items.size();++i){
+                    TextBlock item = items.valueAt(i);
+                    stringBuilder.append(item.getValue());
+                    stringBuilder.append("\n");
+                }
+                String result = stringBuilder.toString();
+                Log.w("res",result);
+                results = result;
+            }
+
+            goToTranslatePage();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void goToTranslatePage() {
+        Intent i = new Intent(MainActivity.this,TranslateActivity.class);
+        i.putExtra("extractedText",results);
+        startActivity(i);
     }
 
     @Override
