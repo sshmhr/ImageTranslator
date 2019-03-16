@@ -28,6 +28,7 @@ public class TranslateActivity extends AppCompatActivity {
     private ArrayList<languages> langList;
     private Spinner spinner_language;
     private ArrayList<String> langNameList;
+    private String languageLocale;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +70,7 @@ public class TranslateActivity extends AppCompatActivity {
                             result = (translation.getTranslatedText());
                             Intent i = new Intent(TranslateActivity.this , speechActivity.class);
                             i.putExtra("translatedText", result);
+                            i.putExtra("localeLanguage",languageLocale);
                             startActivity(i);
 
                     }
@@ -96,31 +98,28 @@ public class TranslateActivity extends AppCompatActivity {
     }
 
     private void seedList() {
-        langList.add(new languages("Afrikaans","af"));
-        langList.add(new languages("Albanian","sq"));
-        langList.add(new languages("Amharic","am"));
-        langList.add(new languages("Arabic","ar"));
-        langList.add(new languages("Bengali","bn"));
-        langList.add(new languages("Bulgarian","bg"));
-        langList.add(new languages("Chinese (Simplified)","zh-CN"));
-        langList.add(new languages("Danish","da"));
-        langList.add(new languages("Dutch	","nl"));
-        langList.add(new languages("English","en"));
-        langList.add(new languages("Finnish","fi"));
-        langList.add(new languages("French","fr"));
-        langList.add(new languages("German","de"));
-        langList.add(new languages("Greek	","el"));
-        langList.add(new languages("Gujarati","gu"));
-        langList.add(new languages("Hindi	","hi"));
-        langList.add(new languages("Japanese","ja"));
-        langList.add(new languages("Kannada","kn"));
-        langList.add(new languages("Marathi","mr"));
-        langList.add(new languages("Nepali","ne"));
-        langList.add(new languages("Punjabi","pa"));
-        langList.add(new languages("Russian","ru"));
-        langList.add(new languages("Spanish","es"));
-        langList.add(new languages("Tamil","ta"));
-        langList.add(new languages("Telugu","te"));
+        langList.add(new languages("Afrikaans","af","af-ZA"));
+        langList.add(new languages("Arabic","ar","ar-AE"));
+        langList.add(new languages("Bengali","bn","bn-IN"));
+        langList.add(new languages("Bulgarian","bg","bg-BG"));
+        langList.add(new languages("Chinese (Simplified)","zh-CN","zh"));
+        langList.add(new languages("Danish","da","da-DK"));
+        langList.add(new languages("Dutch	","nl","nl-NL"));
+        langList.add(new languages("English","en","en-IN"));
+        langList.add(new languages("Finnish","fi","fi-FI"));
+        langList.add(new languages("French","fr","fr-FR"));
+        langList.add(new languages("German","de","de-DE"));
+        langList.add(new languages("Greek	","el","el-GR"));
+        langList.add(new languages("Gujarati","gu","gu-IN"));
+        langList.add(new languages("Hindi	","hi","hi-IN"));
+        langList.add(new languages("Japanese","ja","ja-JP"));
+        langList.add(new languages("Kannada","kn","kn-IN"));
+        langList.add(new languages("Marathi","mr","mr-IN"));
+        langList.add(new languages("Nepali","ne","ne-NP"));
+        langList.add(new languages("Russian","ru","ru-RU"));
+        langList.add(new languages("Spanish","es","es-US"));
+        langList.add(new languages("Tamil","ta","ta-IN"));
+        langList.add(new languages("Telugu","te","te-IN"));
 
         for(languages i : langList){
             langNameList.add(i.langName);
@@ -131,6 +130,7 @@ public class TranslateActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
             {
                 langChoice = langList.get(position).lId;
+                languageLocale = langList.get(position).locale;
             } // to close the onItemSelected
             public void onNothingSelected(AdapterView<?> parent)
             {
