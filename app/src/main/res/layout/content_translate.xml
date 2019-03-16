@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#e3e3e3"
+    android:background="#37474f"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".TranslateActivity"
     tools:showIn="@layout/activity_translate">
@@ -16,10 +16,11 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
+        android:backgroundTint="#37474f"
         android:ems="10"
         android:inputType="textMultiLine"
         android:maxLines="30"
-        android:textColor="#444444"
+        android:textColor="#e3e3e3"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -58,11 +59,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
+        android:backgroundTint="#37474f"
+        android:pointerIcon="arrow"
         app:layout_constraintBottom_toTopOf="@+id/textView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintEnd_toStartOf="@+id/imageView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3"
         app:layout_constraintVertical_bias="0.0" />
@@ -77,4 +78,15 @@
         android:textColor="@color/colorAccent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginEnd="8dp"
+        android:padding="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/spinner_language_select"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/spinner_language_select"
+        app:srcCompat="@drawable/ic_arrow_drop_down_black_24dp" />
 </android.support.constraint.ConstraintLayout>

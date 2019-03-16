@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="#e3e3e3"
+    android:background="#37474f"
     android:layout_height="match_parent"
     tools:context=".speechActivity">
 
@@ -15,10 +15,10 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:background="#e3e3e3"
+        android:background="#37474f"
         android:text="TextView"
         android:textAlignment="center"
-        android:textColor="#333333"
+        android:textColor="#e3e3e3"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/translate_button"
         app:layout_constraintEnd_toEndOf="parent"

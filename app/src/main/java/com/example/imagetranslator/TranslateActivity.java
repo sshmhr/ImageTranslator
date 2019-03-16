@@ -92,8 +92,8 @@ public class TranslateActivity extends AppCompatActivity {
         langList = new ArrayList<>();
         langNameList = new ArrayList<>();
         seedList();
-        ArrayAdapter<String> langListAdapter = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item, langNameList);
-        langListAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<String> langListAdapter = new ArrayAdapter<>(this,R.layout.spinner_item, langNameList);
+//        langListAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner_language.setAdapter(langListAdapter);
     }
 
