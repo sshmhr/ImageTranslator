@@ -102,23 +102,25 @@ public class TranslateActivity extends AppCompatActivity {
         langList.add(new languages("Arabic","ar","ar-AE"));
         langList.add(new languages("Bengali","bn","bn-IN"));
         langList.add(new languages("Bulgarian","bg","bg-BG"));
+        langList.add(new languages("Korean","ko","ko-KR"));
+//        langList.add(new languages("Thai","th","th-TH"));
         langList.add(new languages("Chinese (Simplified)","zh-CN","zh"));
-        langList.add(new languages("Danish","da","da-DK"));
-        langList.add(new languages("Dutch	","nl","nl-NL"));
+//        langList.add(new languages("Danish","da","da-DK"));
+//        langList.add(new languages("Dutch	","nl","nl-NL"));
         langList.add(new languages("English","en","en-IN"));
-        langList.add(new languages("Finnish","fi","fi-FI"));
+//        langList.add(new languages("Finnish","fi","fi-FI"));
         langList.add(new languages("French","fr","fr-FR"));
         langList.add(new languages("German","de","de-DE"));
         langList.add(new languages("Greek	","el","el-GR"));
         langList.add(new languages("Gujarati","gu","gu-IN"));
         langList.add(new languages("Hindi	","hi","hi-IN"));
-        langList.add(new languages("Japanese","ja","ja-JP"));
+//        langList.add(new languages("Japanese","ja","ja-JP"));
         langList.add(new languages("Kannada","kn","kn-IN"));
         langList.add(new languages("Marathi","mr","mr-IN"));
-        langList.add(new languages("Nepali","ne","ne-NP"));
+//        langList.add(new languages("Nepali","ne","ne-NP"));
         langList.add(new languages("Russian","ru","ru-RU"));
-        langList.add(new languages("Spanish","es","es-US"));
-        langList.add(new languages("Tamil","ta","ta-IN"));
+//        langList.add(new languages("Spanish","es","es-US"));
+//        langList.add(new languages("Tamil","ta","ta-IN"));
         langList.add(new languages("Telugu","te","te-IN"));
 
         for(languages i : langList){

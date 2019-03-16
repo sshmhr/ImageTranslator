@@ -41,7 +41,11 @@ public class speechActivity extends AppCompatActivity {
                     int result = t1.setLanguage(lan_choice_locale);
 
                     if (result == TextToSpeech.LANG_MISSING_DATA
-                            || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                            || result == TextToSpeech.LANG_NOT_SUPPORTED ||
+                            language_choice.equals("ko-KR")||
+                            language_choice.equals("zh")) {
+                        Button b = findViewById(R.id.translate_button);
+                        b.setVisibility(View.INVISIBLE);
                         Log.e("TTS", "This Language is not supported");
                     }
                 }
@@ -79,5 +83,10 @@ public class speechActivity extends AppCompatActivity {
             t1.shutdown();
         }
         super.onStop();
+    }
+
+    public void goBack(View view){
+        Intent i = new Intent(this,MainActivity.class);
+        startActivity(i);
     }
 }
